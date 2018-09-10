@@ -9,6 +9,12 @@ class Info extends CI_Controller {
 	}
 	public function login()
 	{
-		echo '111111';
+		$username=$this->input->post('username');
+		$password=$this->input->post('password');
+		$param = [
+		  'username'=>$username,
+            'password'=>$password
+        ];
+		echo json_encode($param);
 	}
 }
