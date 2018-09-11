@@ -23,7 +23,6 @@ class Api extends CI_Controller {
 		if(!empty($data)){
 			if($data['password'] == md5($password)){/*密码正确返回token*/
 					$token = $this->create_token($username,$password);
-					echo json_encode($token);die;
 					$query = $this->db->query("UPDATE users SET token = '$token' WHERE username = '$username'");//将token插入表
 			}else{
 				http_response_code(401);
@@ -42,7 +41,7 @@ class Api extends CI_Controller {
 		echo json_encode($token);
 	}
 	public function create_token($uname,$pwd){
-			$token = md5($uname,32).'-'.md5($uname,16).'-'.md5(time(),32);
+			$token = md5($uname,16).'-'.md5($uname,16).'-'.md5(time()+86400,16);
 			return $token;
 	}
 }
