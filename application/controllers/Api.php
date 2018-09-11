@@ -17,10 +17,19 @@ class Api extends CI_Controller {
 	{
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		$param=[
-			'username'=>$username
-		];
-		$data=$this->model->select_users($param);		
-		echo json_encode($data);
+		$query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
+		$data = $query->result_array()[0];
+		if(!empty($data)){
+			if($data['password'] == md5($password)){/*密码正确返回token*/
+					$token = $this->create_token($username,$password);
+					$query = $this->db->query("UPDATE users SET token = '$token'");//将token插入表
+          $result = $query->result_array()[0];
+			}
+		}
+		echo json_encode($result);
+	}
+	public function create_token($uname,$pwd){
+			$token = md5($uname,32).'-'.md5($uname,16).'-'.md5(time(),32);
+			return $token;
 	}
 }
