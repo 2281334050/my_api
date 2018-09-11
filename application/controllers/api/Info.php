@@ -9,9 +9,9 @@ class Info extends CI_Controller {
 	}
 	public function login()
 	{
-		$username=$this->input->post('username');
-		$password=$this->input->post('password');
-		$result = $this->db->query("SELECT * FROM users");
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$result = $this->db->query("SELECT * FROM users WHERE uname = $username");
 		$arr = $result->result_array();
 		echo json_encode($arr);
 	}
