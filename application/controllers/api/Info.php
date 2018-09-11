@@ -12,6 +12,7 @@ class Info extends CI_Controller {
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
 		$result = $this->db->query("SELECT * FROM users");
-		echo json_encode($result);
+		$arr = $result->result_array();
+		echo json_encode($arr);
 	}
 }
