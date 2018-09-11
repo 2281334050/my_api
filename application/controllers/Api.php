@@ -38,7 +38,7 @@ class Api extends CI_Controller {
 					"msg"=>"账号或密码错误"
 				];
 		}
-		echo json_encode(md5($password));
+		echo json_encode($query);
 	}
 	public function create_token($uname,$pwd){
 			$token = md5($uname,32).'-'.md5($uname,16).'-'.md5(time(),32);
