@@ -11,11 +11,7 @@ class Info extends CI_Controller {
 	{
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
-		$param = [
-		  'username'=>$username,
-            'password'=>$password,
-            '1'=>1
-        ];
-		echo json_encode($param);
+		$result = $this->db->query("SELECT * FORM users WHERE username = $username");
+		echo json_encode($result);
 	}
 }
