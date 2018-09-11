@@ -1,5 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Model_class extends MY_Model
+class Model_class extends CI_Model
 {
   public function __construct()
     {
