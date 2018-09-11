@@ -1,18 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Info extends CI_Controller {
+class Api extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		echo 'api server is running!';
 	}
 	public function login()
 	{
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		$result = $this->db->query("SELECT * FROM users WHERE uname = '$username'");
-		$arr = $result->result_array();
-		echo json_encode($arr);
+		$query = $this->db->query("SELECT * FROM users WHERE uname = '$username'");
+		$result = $query->result_array();
+		
+		echo json_encode($result);
 	}
 }
