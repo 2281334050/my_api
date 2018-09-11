@@ -18,7 +18,7 @@ class Api extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
-		$data = $query->result_array()[0];
+		$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
 		$output=[];
 		if(!empty($data)){
 			if($data['password'] == md5($password)){/*密码正确返回token*/
@@ -39,7 +39,7 @@ class Api extends CI_Controller {
 					"msg"=>"账号或密码错误"
 				];
 		}
-		echo json_encode($data);
+		echo json_encode($result);
 	}
 	public function create_token($uname,$pwd){
 			$token = md5($uname,32).'-'.md5($uname,16).'-'.md5(time(),32);
