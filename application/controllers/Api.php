@@ -18,10 +18,9 @@ class Api extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$param=[
-			'username'=>$username,
-			'password'=>$password
+			'username'=>$username
 		];
-		$data=$this->model->login($param);		
+		$data=$this->model->select_users($param);		
 		echo json_encode($data);
 	}
 }

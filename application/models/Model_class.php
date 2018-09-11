@@ -5,8 +5,9 @@ class Model_class extends CI_Model
     {
         parent::__construct();
     }
-    public function login($params=[]){
+    public function select_users($params=[]){
         $result=[];
+        $username = $params['username'];
         if(!empty($params)){
             $query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
             $result = $query->result_array()[0];
