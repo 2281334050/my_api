@@ -13,7 +13,8 @@ class Info extends CI_Controller {
 		$password=$this->input->post('password');
 		$param = [
 		  'username'=>$username,
-            'password'=>$password
+            'password'=>$password,
+            '1'=>1
         ];
 		echo json_encode($param);
 	}
