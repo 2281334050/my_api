@@ -19,14 +19,27 @@ class Api extends CI_Controller {
 		$password = $this->input->post('password');
 		$query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
 		$data = $query->result_array()[0];
+		$output=[];
 		if(!empty($data)){
 			if($data['password'] == md5($password)){/*密码正确返回token*/
 					$token = $this->create_token($username,$password);
 					$query = $this->db->query("UPDATE users SET token = '$token'");//将token插入表
-          $result = $query->result_array()[0];
+          $result = $query->result_array();
+			}else{
+				http_response_code(401);
+				$output=[
+					"status"=>0,
+					"msg"=>"账号或密码错误"
+				];
 			}
+		}else{
+			http_response_code(401);
+				$output=[
+					"status"=>0,
+					"msg"=>"账号或密码错误"
+				];
 		}
-		echo json_encode($result);
+		echo json_encode($output);
 	}
 	public function create_token($uname,$pwd){
 			$token = md5($uname,32).'-'.md5($uname,16).'-'.md5(time(),32);
