@@ -24,7 +24,7 @@ class Api extends CI_Controller {
 			if($data['password'] == md5($password)){/*密码正确返回token*/
 					$time = time()+86400;
 					$token = $this->create_token($username,$password,$time);
-					$sql = "UPDATE users SET token = ? WHERE username = ?;";
+					$sql = "UPDATE users SET token = ? WHERE username = ?";
 					$query = $this->db->query($sql,[$token,$username]);//将token插入表
 					if($query){
 						http_response_code(200);
