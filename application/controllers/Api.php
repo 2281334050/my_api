@@ -20,31 +20,41 @@ class Api extends CI_Controller {
 		$query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
 		$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
 		$output=[];
-		$time = time()+86400;
-		$token = md5($username).'-'.md5($password).'-'.md5($time);
-		// if(!empty($data)){
-		// 	if($data['password'] == md5($password)){/*密码正确返回token*/
-		// 			$time = time()+86400;
-		// 			$token = md5($username,16).'-'.md5($password,16).'-'.md5($time,16);
-		// 			//$query = $this->db->query("UPDATE users SET token = '$token' WHERE username = '$username'");//将token插入表
-		// 	}else{
-		// 		http_response_code(401);
-		// 		$output=[
-		// 			"status"=>0,
-		// 			"msg"=>"账号或密码错误"
-		// 		];
-		// 	}
-		// }else{
-		// 	http_response_code(401);
-		// 		$output=[
-		// 			"status"=>0,
-		// 			"msg"=>"账号或密码错误"
-		// 		];
-		// }
-		echo json_encode($token);
+		if(!empty($data)){
+			if($data['password'] == md5($password)){/*密码正确返回token*/
+					$time = time()+86400;
+					$token = $this->create_token($username,$password,$time);
+					$query = $this->db->query("UPDATE users SET token = '$token' WHERE username = '$username'");//将token插入表
+					if($query){
+						http_response_code(200);
+						$output=[
+							'status'=>1,
+							'token'=>$token,
+						];
+					}else{
+						$output=[
+							'status'=>0,
+							'msg'=>'插入表失败',
+						];
+					}
+			}else{
+				http_response_code(401);
+				$output=[
+					"status"=>0,
+					"msg"=>"账号或密码错误"
+				];
+			}
+		}else{
+			http_response_code(401);
+				$output=[
+					"status"=>0,
+					"msg"=>"账号或密码错误"
+				];
+		}
+		echo json_encode($output);
 	}
-	public function create_token($uname,$pwd){
-			$token = md5($uname,16).'-'.md5($uname,16).'-'.md5(time()+86400,16);
+	public function create_token($uname,$pwd,$time){
+			$token = md5($uname).'-'.md5($pwd).'-'.md5($time);
 			return $token;
 	}
 }
