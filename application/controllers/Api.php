@@ -21,7 +21,7 @@ class Api extends CI_Controller {
 		$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
 		$output=[];
 		$time = time()+86400;
-		$token = md5($username,16).'-'.md5($password,16).'-'.md5($time,16);
+		$token = md5($username).'-'.md5($password).'-'.md5($time);
 		// if(!empty($data)){
 		// 	if($data['password'] == md5($password)){/*密码正确返回token*/
 		// 			$time = time()+86400;
