@@ -27,8 +27,8 @@ class Api extends CI_Controller {
 					$sql = "UPDATE users SET token = ? WHERE username = ?";
 					$query = $this->db->query($sql,[$token,$username]);//将token插入表
 					if($query){
-						http_response_code(200);
 						$output=[
+							'status'=>1,
 							'token'=>$token,
 						];
 					}else{
@@ -38,14 +38,15 @@ class Api extends CI_Controller {
 						];
 					}
 			}else{
-				http_response_code(401);
 				$output=[
+					"status"=>0,
 					"msg"=>"账号或密码错误"
 				];
 			}
 		}else{
-			http_response_code(401);
+
 				$output=[
+					"status"=>0,
 					"msg"=>"账号或密码错误"
 				];
 		}
