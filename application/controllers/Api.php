@@ -55,7 +55,7 @@ class Api extends CI_Controller {
 		echo json_encode($output);
 	}
 	public function create_token($uname,$pwd,$time){
-			$token = md5($uname).'A'.md5($pwd).'A'.md5($time);
+			$token = md5($uname).'-'.md5($pwd).'-'.md5($time);
 			return $token;
 	}
 }
