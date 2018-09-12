@@ -20,6 +20,7 @@ class Api extends CI_Controller {
 		$query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
 		$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
 		$output=[];
+		$time = time()+86400;
 		$token = md5($username,16).'-'.md5($password,16).'-'.md5($time,16);
 		// if(!empty($data)){
 		// 	if($data['password'] == md5($password)){/*密码正确返回token*/
