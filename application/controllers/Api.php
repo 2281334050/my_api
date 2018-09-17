@@ -59,6 +59,6 @@ class Api extends CI_Controller {
 	}
 	/*检查token*/
 	public function check_token(){
-		print_r($_SERVER);
+		echo ''."<pre>";print_r($_SERVER);echo "</pre>";
 	}
 }
