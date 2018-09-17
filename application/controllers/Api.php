@@ -10,10 +10,10 @@ class Api extends CI_Controller {
 			if(!strstr($_SERVER['REQUEST_URI'],'login') && !$this->check_token()){
 					$output =[ 
 						'status'=>0,
-						'msg'=>'授权信息过期，请重新登录！'
+						'msg'=>'授权信息过期，请重新登录!'
 					];
-					echo json_decode($output);
-					return;
+					echo json_encode($output);
+					return false;
 			}
 	}
 	public function index()
