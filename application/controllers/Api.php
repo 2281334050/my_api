@@ -69,7 +69,11 @@ class Api extends CI_Controller {
 	public function check_token(){
 		if(isset($_SERVER['HTTP_TOKEN']) && !empty($_SERVER['HTTP_TOKEN'])){
 				$arr = explode('.',$_SERVER['HTTP_TOKEN']);
-				$time = base64_decode($arr[2]);
+				$username = base64_decode($arr[0]);
+				$sql = "SELECT password FROM users WHERE username = ?";
+				$query = $this->db->query([$username]);
+				$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
+				print_r($data);die;
 				if($time > time()){
 					return true;
 				}
