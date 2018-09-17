@@ -7,6 +7,14 @@ class Api extends CI_Controller {
 	{
 			parent::__construct();
 			$this->load->model('Model_class','model');
+			if(!strstr($_SERVER['REQUEST_URI'],'login') && !$this->check_token()){
+					$output =[ 
+						'status'=>0,
+						'msg'=>'授权信息过期，请重新登录！'
+					];
+					echo json_decode($output);
+					return;
+			}
 	}
 	public function index()
 	{
@@ -54,11 +62,20 @@ class Api extends CI_Controller {
 	}
 	/*生成token过期时间为24小时*/
 	public function create_token($uname,$pwd,$time){
-			$token = md5($uname).'-'.md5($pwd).'-'.md5($time);
+			$token = md5($uname).'.'.md5($pwd).'.'.md5($time);
 			return $token;
 	}
 	/*检查token*/
 	public function check_token(){
-		echo ''."<pre>";print_r($_SERVER);echo "</pre>";
+		if(isset($_SERVER['HTTP_TOKEN']) && !empty($_SERVER['HTTP_TOKEN'])){
+				$arr = explode('.',$_SERVER['HTTP_TOKEN']);
+				$time = md5($arr[2]);
+				if($item > time()){
+					return true;
+				}
+				return false;
+		}else{
+			return false;
+		}
 	}
 }
