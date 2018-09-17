@@ -62,14 +62,14 @@ class Api extends CI_Controller {
 	}
 	/*生成token过期时间为24小时*/
 	public function create_token($uname,$pwd,$time){
-			$token = md5($uname).'.'.md5($pwd).'.'.md5($time);
+			$token = base64_decode($uname).'.'.md5($pwd).'.'.base64_decode($time);
 			return $token;
 	}
 	/*检查token*/
 	public function check_token(){
 		if(isset($_SERVER['HTTP_TOKEN']) && !empty($_SERVER['HTTP_TOKEN'])){
 				$arr = explode('.',$_SERVER['HTTP_TOKEN']);
-				$time = md5($arr[2]);
+				$time = base64_decode($arr[2]);
 				if($time > time()){
 					return true;
 				}
@@ -80,6 +80,6 @@ class Api extends CI_Controller {
 	}
 	/*发布*/
 	public function publish_photo(){
-		
+
 	}
 }
