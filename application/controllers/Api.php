@@ -70,7 +70,7 @@ class Api extends CI_Controller {
 		if(isset($_SERVER['HTTP_TOKEN']) && !empty($_SERVER['HTTP_TOKEN'])){
 				$arr = explode('.',$_SERVER['HTTP_TOKEN']);
 				$time = md5($arr[2]);
-				if($item > time()){
+				if($time > time()){
 					return true;
 				}
 				return false;
