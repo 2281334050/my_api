@@ -62,8 +62,7 @@ class Api extends CI_Controller {
 	}
 	/*生成token过期时间为24小时*/
 	public function create_token($uname,$pwd,$time){
-			$token = base64_decode($uname).'.'.md5($pwd).'.'.base64_decode($time);
-			print_r($token);die;
+			$token = base64_encode($uname).'.'.md5($pwd).'.'.base64_encode($time);
 			return $token;
 	}
 	/*检查token*/
