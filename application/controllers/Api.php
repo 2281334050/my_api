@@ -78,4 +78,8 @@ class Api extends CI_Controller {
 			return false;
 		}
 	}
+	/*发布*/
+	public function publish_photo(){
+		
+	}
 }
