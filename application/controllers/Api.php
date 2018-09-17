@@ -73,9 +73,13 @@ class Api extends CI_Controller {
 				$sql = "SELECT token FROM users WHERE username = ?";
 				$query = $this->db->query($sql,[$username]);
 				$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
-				print_r($data);
-				if($time > time()){
-					return true;
+				if(!empty($data)){
+					$time = explode('.',$data['token'])[2];
+					$time = base64_decode($time);
+					if((int)$time > time()){
+						return true;
+					}
+					return false;
 				}
 				return false;
 		}else{
