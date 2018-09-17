@@ -88,6 +88,6 @@ class Api extends CI_Controller {
 	}
 	/*发布*/
 	public function publish_photo(){
-
+		echo 'success';
 	}
 }
