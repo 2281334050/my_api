@@ -13,7 +13,7 @@ class Api extends CI_Controller {
 						'msg'=>'授权信息过期，请重新登录!'
 					];
 					echo json_encode($output);
-					return false;
+					exit();
 			}
 	}
 	public function index()
