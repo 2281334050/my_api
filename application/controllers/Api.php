@@ -30,6 +30,12 @@ class Api extends CI_Controller {
 		$output=[];
 		if(!empty($data)){
 			if($data['password'] == md5($password)){/*密码正确返回token*/
+					$last_work_time = 0;
+					if(!empty($data['token'])){//上一次登录时间
+						$last_work_time = explode('.',$data['token'])[2];
+						$last_work_time = (int)base64_decode($time);
+						$last_work_time = date('Y-m-d-h:i:s',$last_work_time);
+					}
 					$time = time()+86400;
 					$token = $this->create_token($username,$password,$time);
 					$sql = "UPDATE users SET token = ? WHERE username = ?";
@@ -38,6 +44,8 @@ class Api extends CI_Controller {
 						$output=[
 							'status'=>1,
 							'token'=>$token,
+							'username'=>$username,
+							'last_work_time'=>$last_work_time
 						];
 					}else{
 						$output=[
