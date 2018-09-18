@@ -100,12 +100,11 @@ class Api extends CI_Controller {
 	}
 	/*生成上传凭证拼在登录token尾部*/
 	public function create_uploadtoken($uid){
-			set_include_path(APPPATH . 'php-sdk/vendor/');
-			include_once 'autoload.php';
+			$this->load->library('Qiniu');
 			$bucket = $this->config->item('qiniu')['bucket'] ;
 			$accessKey = $this->config->item('qiniu')['accessKey'];
 			$secretKey = $this->config->item('qiniu')['secretKey'];
-			$auth = new Auth($accessKey, $secretKey);
+			$auth = new Qiniu\Auth($accessKey, $secretKey);
 			$policy = array(
 				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
 				'callbackBody' => '{"fname":"$(fname)", "fkey":"$(key)", "desc":"$(x:desc)", "uid":' . $uid . '}'
