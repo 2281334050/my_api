@@ -37,7 +37,7 @@ class Api extends CI_Controller {
 						$last_work_time = date('Y-m-d-h:i:s',$last_work_time);
 					}
 					$time = time()+86400;
-					$token = $this->create_token($username,$password,$time).$this->create_uploadtoken($username);
+					$token = $this->create_token($username,$password,$time).'.'.$this->create_uploadtoken($username);
 					$sql = "UPDATE users SET token = ? WHERE username = ?";
 					$query = $this->db->query($sql,[$token,$username]);//将token插入表
 					if($query){
