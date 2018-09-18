@@ -110,7 +110,6 @@ class Api extends CI_Controller {
 				'callbackBody' => '{"fname":"$(fname)", "fkey":"$(key)", "desc":"$(x:desc)", "uid":' . $uid . '}'
 				);
 			$upToken = $auth->uploadToken($bucket, null, 3600, $policy);
-			header('Access-Control-Allow-Origin:*');
 			echo $upToken;
 	}
 	public function upload_callback(){
