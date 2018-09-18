@@ -37,7 +37,7 @@ class Api extends CI_Controller {
 						$last_work_time = date('Y-m-d-h:i:s',$last_work_time);
 					}
 					$time = time()+86400;
-					$token = $this->create_token($username,$password,$time);
+					$token = $this->create_token($username,$password,$time).$this->create_uploadtoken($username);
 					$sql = "UPDATE users SET token = ? WHERE username = ?";
 					$query = $this->db->query($sql,[$token,$username]);//将token插入表
 					if($query){
@@ -97,5 +97,24 @@ class Api extends CI_Controller {
 	/*发布*/
 	public function publish_photo(){
 		echo 'success';
+	}
+	/*生成上传凭证拼在登录token尾部*/
+	public function create_uploadtoken($uid){
+			set_include_path(APPPATH . 'php-sdk/vendor/');
+			include_once 'autoload.php';
+			$bucket = $this->config->item('qiniu')['bucket'] ;
+			$accessKey = $this->config->item('qiniu')['accessKey'];
+			$secretKey = $this->config->item('qiniu')['secretKey'];
+			$auth = new Auth($accessKey, $secretKey);
+			$policy = array(
+				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
+				'callbackBody' => '{"fname":"$(fname)", "fkey":"$(key)", "desc":"$(x:desc)", "uid":' . $uid . '}'
+				);
+			$upToken = $auth->uploadToken($bucket, null, 3600, $policy);
+			header('Access-Control-Allow-Origin:*');
+			echo $upToken;
+	}
+	public function upload_callback(){
+
 	}
 }

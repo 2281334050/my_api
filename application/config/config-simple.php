@@ -521,3 +521,27 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/**
+ * 七牛配置(本地开发用测试空间,服务器用正式空间)
+ */
+$config['qiniu'] = Array(
+  'accessKey'   => 'hjg1HilDmR9A-KZf6hFX-lEa93tJISxj_r9_J5i7',
+  'secretKey'   => 'ClF9513RwX8NYqlt_L2cm0D-kTyL27PqGPQ2qnP0',
+  'bucket'      => 'kingsdisk',
+  'up_domain'      => 'pdhr9nhxj.bkt.clouddn.com',
+);
+
+/**
+ * 上传配置
+ */
+$config['upload'] = Array(
+  'allowType'     => array('jpg', 'png', 'gif', 'jpeg', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf','mp3','mp4','swf'), //允许上传的所有文件类型
+  'allowImgType'  => array('jpg', 'png', 'gif', 'jpeg'), //允许上传的图片文件类型
+  'allowFileType' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf'), //允许上传的非图片文件类型
+  'allowAudioType'  => array('mp3'), //允许上传的音频文件类型
+  'allowVideoType'  => array('mp4'), //允许上传的视频文件类型
+  'maxSize'       => 104857600,        //允许上传的文件大小默认 10MB
+  'maxFiles'      => 50                 //最多上传文件个数
+);
+
