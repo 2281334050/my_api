@@ -83,6 +83,7 @@ class Api extends CI_Controller {
 				$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
 				if(!empty($data)){
 					$time = explode('.',$data['token'])[2];
+					print_r($time);die;
 					$time = (int)base64_decode($time);
 					if($time > time()){
 						return true;
