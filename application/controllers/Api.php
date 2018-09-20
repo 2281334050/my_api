@@ -133,6 +133,7 @@ class Api extends CI_Controller {
 				'msg'=>'查询失败'
 			];
 		}
+		echo json_encode($output);
 	}
 	/*生成上传凭证拼在登录token尾部*/
 	public function create_uploadtoken($uid){
