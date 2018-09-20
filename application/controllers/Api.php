@@ -122,7 +122,7 @@ class Api extends CI_Controller {
 		$query = $this->db->query($sql);
 		$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
 		$output=[];
-		if(!empty(data)){
+		if(!empty($data)){
 			 $output=[
 				 'status'=>1,
 				 'list'=>$data
