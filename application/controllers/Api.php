@@ -123,6 +123,9 @@ class Api extends CI_Controller {
 		$data = $query->result_array();
 		$output=[];
 		if(!empty($data)){
+		    foreach ($data as $key => $value){
+		        $data[$key]['id'] = (int)$value['id'];
+            }
 			 $output=[
 				 'status'=>1,
 				 'list'=>$data
