@@ -120,7 +120,7 @@ class Api extends CI_Controller {
 	public function get_photo_lists(){
 		$sql = "SELECT * FROM photo_lists";
 		$query = $this->db->query($sql);
-		$data = isset($query->result_array()[0]) ? $query->result_array()[0] : [];
+		$data = $query->result_array();
 		$output=[];
 		if(!empty($data)){
 			 $output=[
