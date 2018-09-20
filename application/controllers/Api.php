@@ -98,6 +98,24 @@ class Api extends CI_Controller {
 	public function publish_photo(){
 		echo 'success';
 	}
+	/*增加相册*/
+	public function addPhotoAlbum(){
+		$name = $this->input->post('name');
+		$sql = "INSERT INTO photo_lists VALUES(NULL,?,?)";
+		$query = $this->db->query($sql,[$name,time()]);//将token插入表
+		if($query){
+			$output=[
+				'status'=>1,
+				'msg'=>'添加相册成功'
+			];
+		}else{
+			$output=[
+				'status'=>0,
+				'msg'=>'插入表失败',
+			];
+		}
+		echo json_encode($output);
+	}
 	/*生成上传凭证拼在登录token尾部*/
 	public function create_uploadtoken($uid){
 			$this->load->library('Qiniu');
@@ -114,6 +132,6 @@ class Api extends CI_Controller {
 			return $upToken;
 	}
 	public function upload_callback(){
-
+			echo '上传结束';
 	}
 }
