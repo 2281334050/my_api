@@ -116,6 +116,7 @@ class Api extends CI_Controller {
 		}
 		echo json_encode($output);
 	}
+	/*编辑相册*/
 	public function edit_photo_list(){
 	    $id = $this->input->post('id');
 	    $name = $this->input->post('new_name');
@@ -130,6 +131,24 @@ class Api extends CI_Controller {
             $output=[
                 'status'=>0,
                 'msg'=>'修改失败',
+            ];
+        }
+        echo json_encode($output);
+    }
+    /*删除相册*/
+    public function delete_photo_list(){
+        $id = $this->input->post('id');
+        $sql = "DELETE FROM photo_lists WHERE id = ?";
+        $query = $this->db->query($sql,[$id]);//将token插入表
+        if($query){
+            $output=[
+                'status'=>1,
+                'msg'=>'删除成功'
+            ];
+        }else{
+            $output=[
+                'status'=>0,
+                'msg'=>'删除失败',
             ];
         }
         echo json_encode($output);
