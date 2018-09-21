@@ -116,6 +116,24 @@ class Api extends CI_Controller {
 		}
 		echo json_encode($output);
 	}
+	public function edit_photo_list(){
+	    $id = $this->input->post('id');
+	    $name = $this->input->post('name');
+        $sql = "UPDATE photo_lists SET name = ? WHERE id = ?";
+        $query = $this->db->query($sql,[$name,$id]);//将token插入表
+        if($query){
+            $output=[
+                'status'=>1,
+                'msg'=>'修改成功'
+            ];
+        }else{
+            $output=[
+                'status'=>0,
+                'msg'=>'修改失败',
+            ];
+        }
+        echo json_encode($output);
+    }
 	/*获取相册列表*/
 	public function get_photo_lists(){
 		$sql = "SELECT * FROM photo_lists";
