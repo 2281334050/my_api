@@ -170,7 +170,7 @@ class Api extends CI_Controller {
 		}else{
 			$output=[
 				'status'=>0,
-				'msg'=>'查询失败'
+                'list'=>$data
 			];
 		}
 		echo json_encode($output);
