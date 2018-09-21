@@ -118,7 +118,7 @@ class Api extends CI_Controller {
 	}
 	public function edit_photo_list(){
 	    $id = $this->input->post('id');
-	    $name = $this->input->post('name');
+	    $name = $this->input->post('new_name');
         $sql = "UPDATE photo_lists SET name = ? WHERE id = ?";
         $query = $this->db->query($sql,[$name,$id]);//将token插入表
         if($query){
