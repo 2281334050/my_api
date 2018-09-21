@@ -121,7 +121,6 @@ class Api extends CI_Controller {
 	    $name = $this->input->post('name');
         $sql = "UPDATE photo_lists SET name = ? WHERE id = ?";
         $query = $this->db->query($sql,[$name,$id]);//将token插入表
-        echo ''."<pre>";print_r($query);echo "</pre>";die;
         if($query){
             $output=[
                 'status'=>1,
