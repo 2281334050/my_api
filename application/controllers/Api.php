@@ -169,7 +169,7 @@ class Api extends CI_Controller {
 			 ];
 		}else{
 			$output=[
-				'status'=>0,
+				'status'=>1,
                 'list'=>$data
 			];
 		}
