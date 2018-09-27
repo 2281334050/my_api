@@ -7,8 +7,9 @@ class Api extends CI_Controller {
 	{
 			parent::__construct();
 			$this->load->model('Model_class','model');
-			if((!strstr($_SERVER['REQUEST_URI'],'upload_callback') || !strstr($_SERVER['REQUEST_URI'],'login')) && !$this->check_token()){
-			    echo ''."<pre>";print_r($_SERVER['REQUEST_URI']);echo "</pre>";
+            $token = $this->input->post('token');
+			if((!strstr($_SERVER['REQUEST_URI'],'login')) && !$this->check_token()){
+			    echo ''."<pre>";print_r($token);echo "</pre>";
 					$output =[ 
 						'status'=>-1,
 						'msg'=>'授权信息过期，请重新登录!'
@@ -38,7 +39,8 @@ class Api extends CI_Controller {
 						$last_work_time = date('Y-m-d-h:i:s',$last_work_time);
 					}
 					$time = time()+86400;
-					$token = $this->create_token($username,$password,$time).'.'.$this->create_uploadtoken($username);
+					$token_ = $this->create_token($username,$password,$time);
+					$token = $token_.'.'.$this->create_uploadtoken($username,$token_);
 					$sql = "UPDATE users SET token = ? WHERE username = ?";
 					$query = $this->db->query($sql,[$token,$username]);//将token插入表
 					if($query){
@@ -177,7 +179,7 @@ class Api extends CI_Controller {
 		echo json_encode($output);
 	}
 	/*生成上传凭证拼在登录token尾部*/
-	public function create_uploadtoken($uid){
+	public function create_uploadtoken($uid,$token){
 			$this->load->library('Qiniu');
 			$bucket = $this->config->item('qiniu')['bucket'] ;
 			$accessKey = $this->config->item('qiniu')['accessKey'];
@@ -185,7 +187,8 @@ class Api extends CI_Controller {
 			$auth = new Qiniu\Auth($accessKey, $secretKey);
 			$policy = array(
 				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
-				'callbackBody' => '{"fname":"$(fname)", "fkey":"$(key)", "desc":"$(x:desc)", "uid":' . $uid . '}'
+				'callbackBody' => '{"fname":"$(fname)", "fkey":"$(key)", "desc":"$(x:desc)", "uid":' . $uid . '}',
+                'token'=>$token
 				);
 			$upToken = $auth->uploadToken($bucket, null, 3600, $policy);
 			header('Access-Control-Allow-Origin:*');
