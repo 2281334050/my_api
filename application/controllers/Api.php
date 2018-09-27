@@ -8,6 +8,7 @@ class Api extends CI_Controller {
 			parent::__construct();
 			$this->load->model('Model_class','model');
 			if((!strstr($_SERVER['REQUEST_URI'],'upload_callback') || !strstr($_SERVER['REQUEST_URI'],'login')) && !$this->check_token()){
+			    echo ''."<pre>";print_r($_SERVER['REQUEST_URI']);echo "</pre>";
 					$output =[ 
 						'status'=>-1,
 						'msg'=>'授权信息过期，请重新登录!'
