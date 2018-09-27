@@ -191,6 +191,6 @@ class Api extends CI_Controller {
 			return $upToken;
 	}
 	public function upload_callback(){
-			echo '上传结束';
+			echo ''."<pre>";print_r($_SERVER);echo "</pre>";
 	}
 }
