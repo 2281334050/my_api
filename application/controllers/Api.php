@@ -7,7 +7,7 @@ class Api extends CI_Controller {
 	{
 			parent::__construct();
 			$this->load->model('Model_class','model');
-			if((!strstr($_SERVER['REQUEST_URI'],'login')) && !$this->check_token()){
+			if(!strstr($_SERVER['REQUEST_URI'],'login') && !strstr($_SERVER['REQUEST_URI'],'upload_callback') && !$this->check_token()){
 					$output =[ 
 						'status'=>-1,
 						'msg'=>$_SERVER['REQUEST_URI']
