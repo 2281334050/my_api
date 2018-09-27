@@ -10,7 +10,7 @@ class Api extends CI_Controller {
 			if(!strstr($_SERVER['REQUEST_URI'],'login') && !strstr($_SERVER['REQUEST_URI'],'upload_callback') && !$this->check_token()){
 					$output =[ 
 						'status'=>-1,
-						'msg'=>$_SERVER['REQUEST_URI']
+						'msg'=>'授权信息过期！请重新登录！'
 					];
 					echo json_encode($output);
 					exit();
@@ -191,6 +191,6 @@ class Api extends CI_Controller {
 			return $upToken;
 	}
 	public function upload_callback(){
-			echo ''."<pre>";print_r($_SERVER);echo "</pre>";
+        echo json_encode($_SERVER);
 	}
 }
