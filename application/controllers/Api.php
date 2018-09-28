@@ -191,6 +191,7 @@ class Api extends CI_Controller {
 			return $upToken;
 	}
 	public function upload_callback(){
-        echo json_encode($_REQUEST);
+	    $body = json_decode($_REQUEST,true);
+        echo json_encode($body);
 	}
 }
