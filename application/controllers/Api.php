@@ -186,12 +186,12 @@ class Api extends CI_Controller {
 				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
 				'callbackBody' => '{"fname":"$(fname)", "fkey":"$(key)", "desc":"$(x:desc)", "uid":' . $uid . '}'
 				);
-			$upToken = $auth->uploadToken($bucket, null, 3600, $policy);
+			$upToken = $auth->uploadToken($bucket, null, 86400, $policy);
 			header('Access-Control-Allow-Origin:*');
 			return $upToken;
 	}
 	public function upload_callback(){
-	    $body = $this->input->post('callbackBody');
+	    $body = $this->input->post('error');
         echo json_encode($body);
 	}
 }
