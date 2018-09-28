@@ -183,9 +183,8 @@ class Api extends CI_Controller {
 			$secretKey = $this->config->item('qiniu')['secretKey'];
 			$auth = new Qiniu\Auth($accessKey, $secretKey);
 			$policy = array(
-				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
-				'callbackBody' => '{"name":"$(name)","key":"$(key)","desc":"$(x:desc)","uid":' . "$uid" . '}',
-                "callbackBodyType"=>'application/json'
+				'returnUrl' => 'http://47.100.213.47/api/upload_callback',
+				'returnBody' => '{"name":"$(name)","key":"$(key)","desc":"$(x:desc)","uid":' . "$uid" . '}'
 				);
 			$upToken = $auth->uploadToken($bucket, null, 86400, $policy);
 			return $upToken;
