@@ -188,11 +188,9 @@ class Api extends CI_Controller {
                 "callbackBodyType"=>'application/json'
 				);
 			$upToken = $auth->uploadToken($bucket, null, 86400, $policy);
-			header('Access-Control-Allow-Origin:*');
 			return $upToken;
 	}
 	public function upload_callback(){
-        $_body = http_get_request_body();
-        echo json_encode($_body);
+        echo json_encode($_REQUEST);
 	}
 }
