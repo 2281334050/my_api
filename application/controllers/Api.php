@@ -185,7 +185,7 @@ class Api extends CI_Controller {
 			$policy = array(
 				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
 	//			'callbackBody' => '{"name":"$(x:name)","uuid":"$(uuid)","size":$(fsize),"key":"$(key)","desc":"$(x:desc)","uid":' .'"'.$uid.'"'. '}'
-				'callbackBody' => 'name=$(x:name) &uuid=$(uuid) &size=$(fsize) &key=$(key ) &desc=$(x:desc) &age=$(x:age)'
+				'callbackBody' => 'name=$(x:name)&uuid=$(uuid)&size=$(fsize)&key=$(key)&desc=$(x:desc)&age=$(x:age)'
 				);
 			$upToken = $auth->uploadToken($bucket, null, 86400, $policy);
 			return $upToken;
