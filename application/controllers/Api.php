@@ -190,8 +190,8 @@ class Api extends CI_Controller {
             ];
         }else{
             $output=[
-                'status'=>0,
-                'msg'=>'查询失败'
+                'status'=>1,
+                'msg'=>$data
             ];
         }
         echo json_encode($output);
