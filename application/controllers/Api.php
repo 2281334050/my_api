@@ -178,8 +178,9 @@ class Api extends CI_Controller {
 	/*获取相片*/
 	public function get_photos()
     {
-        $sql = "SELECT * FROM files_info";
-        $query = $this->db->query($sql);
+       $photo_list_id = $this->input->post('photo_list_id');
+        $sql = "SELECT * FROM files_info WHERE photo_list_id = ?";
+        $query = $this->db->query($sql,[$photo_list_id]);
         $data = $query->result_array();
         $output=[];
         if(!empty($data)){
@@ -189,8 +190,8 @@ class Api extends CI_Controller {
             ];
         }else{
             $output=[
-                'status'=>1,
-                'list'=>$data
+                'status'=>0,
+                'msg'=>'查询失败'
             ];
         }
         echo json_encode($output);
