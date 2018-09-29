@@ -201,10 +201,13 @@ class Api extends CI_Controller {
         $sql = "INSERT INTO files_info VALUES(NULL,?,?,?,?,?,?,?,?)";
         $query = $this->db->query($sql,[$name,$key,time(),$desc,$photo_list_id,$uploader,$uuid,$size]);//
         if($query){
+            $sql = "SELECT * FROM files_info WHERE uuid = ?";
+            $result = $this->db->query($sql,[$uuid]);
+            $data = $result->result_array();
             $output=[
                 'status'=>1,
                 'msg'=>'上传成功',
-                'data'=>[$name,$key,time(),$desc,$photo_list_id,$uploader,$uuid,$size]
+                'data'=>$data
             ];
         }else{
             $output=[
