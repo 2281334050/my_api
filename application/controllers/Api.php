@@ -192,6 +192,11 @@ class Api extends CI_Controller {
 	}
 	public function upload_callback(){
 	    $param['uuid'] = $this->input->post('uuid');
+	    $param['name'] = $this->input->post('name');
+	    $param['size'] = $this->input->post('size');
+	    $param['key'] = $this->input->post('key');
+	    $param['desc'] = $this->input->post('desc');
+	    $param['age'] = $this->input->post('age');
         echo json_encode($param);
 	}
 }
