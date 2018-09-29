@@ -185,18 +185,32 @@ class Api extends CI_Controller {
 			$policy = array(
 				'callbackUrl' => 'http://47.100.213.47/api/upload_callback',
 	//			'callbackBody' => '{"name":"$(x:name)","uuid":"$(uuid)","size":$(fsize),"key":"$(key)","desc":"$(x:desc)","uid":' .'"'.$uid.'"'. '}'
-				'callbackBody' => 'name=$(x:name)&uuid=$(uuid)&size=$(fsize)&key=$(key)&desc=$(x:desc)&age=$(x:age)'
+				'callbackBody' => 'name=$(x:name)&uuid=$(uuid)&size=$(fsize)&key=$(key)&desc=$(x:desc)&photo_list_id=$(x:photo_list_id)&uploader='.$uid
 				);
 			$upToken = $auth->uploadToken($bucket, null, 86400, $policy);
 			return $upToken;
 	}
 	public function upload_callback(){
-	    $param['uuid'] = $this->input->post('uuid');
-	    $param['name'] = $this->input->post('name');
-	    $param['size'] = $this->input->post('size');
-	    $param['key'] = $this->input->post('key');
-	    $param['desc'] = $this->input->post('desc');
-	    $param['age'] = $this->input->post('age');
-        echo json_encode($param);
+	    $uuid = $this->input->post('uuid');
+	    $name = $this->input->post('name');
+	    $size = $this->input->post('size');
+	    $key = $this->input->post('key');
+	    $desc = $this->input->post('desc');
+	    $photo_list_id = $this->input->post('photo_list_id');
+	    $uploader = $this->input->post('uploader');
+        $sql = "INSERT INTO files_info VALUES(NULL,?,?,?,?,?,?,?,?)";
+        $query = $this->db->query($sql,[$name,$key,time(),$desc,$photo_list_id,$uploader,$uuid,$size]);//将token插入表
+        if($query){
+            $output=[
+                'status'=>1,
+                'msg'=>'上传成功'
+            ];
+        }else{
+            $output=[
+                'status'=>0,
+                'msg'=>'插入表失败',
+            ];
+        }
+        echo json_encode($output);
 	}
 }
