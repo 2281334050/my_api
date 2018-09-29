@@ -191,7 +191,7 @@ class Api extends CI_Controller {
         }else{
             $output=[
                 'status'=>1,
-                'msg'=>$data
+                'list'=>$data
             ];
         }
         echo json_encode($output);
