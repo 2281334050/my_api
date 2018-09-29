@@ -175,6 +175,26 @@ class Api extends CI_Controller {
 		}
 		echo json_encode($output);
 	}
+	/*获取相片*/
+	public function get_photos()
+    {
+        $sql = "SELECT * FROM files_info";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        $output=[];
+        if(!empty($data)){
+            $output=[
+                'status'=>1,
+                'list'=>$data
+            ];
+        }else{
+            $output=[
+                'status'=>1,
+                'list'=>$data
+            ];
+        }
+        echo json_encode($output);
+    }
 	/*生成上传凭证拼在登录token尾部*/
 	public function create_uploadtoken($uid){
 			$this->load->library('Qiniu');
