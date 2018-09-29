@@ -199,11 +199,12 @@ class Api extends CI_Controller {
 	    $photo_list_id = $this->input->post('photo_list_id');
 	    $uploader = $this->input->post('uploader');
         $sql = "INSERT INTO files_info VALUES(NULL,?,?,?,?,?,?,?,?)";
-        $query = $this->db->query($sql,[$name,$key,time(),$desc,$photo_list_id,$uploader,$uuid,$size]);//将token插入表
+        $query = $this->db->query($sql,[$name,$key,time(),$desc,$photo_list_id,$uploader,$uuid,$size]);//
         if($query){
             $output=[
                 'status'=>1,
-                'msg'=>'上传成功'
+                'msg'=>'上传成功',
+                'data'=>[$name,$key,time(),$desc,$photo_list_id,$uploader,$uuid,$size]
             ];
         }else{
             $output=[
