@@ -33,7 +33,7 @@ class Api extends CI_Controller {
 					$last_work_time = 0;
 					if(!empty($data['token'])){//上一次登录时间
 						$last_work_time = explode('.',$data['token'])[2];
-						$last_work_time = (int)base64_decode($last_work_time);
+						$last_work_time = (int)base64_decode($last_work_time)-86400;
 						$last_work_time = date('Y-m-d-h:i:s',$last_work_time);
 					}
 					$time = time()+86400;
