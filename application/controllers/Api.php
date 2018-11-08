@@ -7,14 +7,14 @@ class Api extends CI_Controller {
 	{
 			parent::__construct();
 			$this->load->model('Model_class','model');
-//			if(!strstr($_SERVER['REQUEST_URI'],'login') && !strstr($_SERVER['REQUEST_URI'],'upload_callback') && !$this->check_token()){
-//					$output =[
-//						'status'=>-1,
-//						'msg'=>'授权信息过期！请重新登录！'
-//					];
-//					echo json_encode($output);
-//					exit();
-//			}
+			if(!strstr($_SERVER['REQUEST_URI'],'login') && !strstr($_SERVER['REQUEST_URI'],'upload_callback') && !$this->check_token()){
+					$output =[
+						'status'=>-1,
+						'msg'=>'授权信息过期！请重新登录！'
+					];
+					echo json_encode($output);
+					exit();
+			}
 	}
 	public function index()
 	{
@@ -239,20 +239,4 @@ class Api extends CI_Controller {
         echo json_encode($output);
 	}
 
-	public function test(){
-        if($_FILES)
-        {
-            $filename = $_FILES['file']['name'];
-            $tmpname = $_FILES['file']['tmp_name'];
-            if(move_uploaded_file($tmpname,$filename))
-            {
-                echo json_encode('上传成功');
-            }
-            else
-            {
-                $data = json_encode($_FILES);
-                echo $data;
-            }
-        }
-    }
 }
