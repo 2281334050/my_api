@@ -7,14 +7,14 @@ class Api extends CI_Controller {
 	{
 			parent::__construct();
 			$this->load->model('Model_class','model');
-			if(!strstr($_SERVER['REQUEST_URI'],'login') && !strstr($_SERVER['REQUEST_URI'],'upload_callback') && !$this->check_token()){
-					$output =[ 
-						'status'=>-1,
-						'msg'=>'授权信息过期！请重新登录！'
-					];
-					echo json_encode($output);
-					exit();
-			}
+//			if(!strstr($_SERVER['REQUEST_URI'],'login') && !strstr($_SERVER['REQUEST_URI'],'upload_callback') && !$this->check_token()){
+//					$output =[
+//						'status'=>-1,
+//						'msg'=>'授权信息过期！请重新登录！'
+//					];
+//					echo json_encode($output);
+//					exit();
+//			}
 	}
 	public function index()
 	{
