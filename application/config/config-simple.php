@@ -529,7 +529,7 @@ $config['qiniu'] = Array(
   'accessKey'   => 'hjg1HilDmR9A-KZf6hFX-lEa93tJISxj_r9_J5i7',
   'secretKey'   => 'ClF9513RwX8NYqlt_L2cm0D-kTyL27PqGPQ2qnP0',
   'bucket'      => 'kingsdisk',
-  'up_domain'      => 'pdhr9nhxj.bkt.clouddn.com',
+  'up_domain'      => 'pno1k5vfj.bkt.clouddn.com',
 );
 
 /**
