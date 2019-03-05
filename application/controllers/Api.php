@@ -196,6 +196,26 @@ class Api extends CI_Controller {
         }
         echo json_encode($output);
     }
+    /*编辑相片*/
+    public function edit_photo(){
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $description = $this->input->post('description');
+        $sql = "UPDATE files_info SET name = ? , description = ? WHERE id = ?";
+        $query = $this->db->query($sql,[$name,$description,$id]);
+        if($query){
+            $output=[
+                'status'=>1,
+                'msg'=>'修改成功'
+            ];
+        }else{
+            $output=[
+                'status'=>0,
+                'msg'=>'修改失败',
+            ];
+        }
+        echo json_encode($output);
+    }
 	/*生成上传凭证拼在登录token尾部*/
 	public function create_uploadtoken($uid){
 			$this->load->library('Qiniu');
